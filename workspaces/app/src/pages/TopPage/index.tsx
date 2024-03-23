@@ -31,7 +31,7 @@ type BookParam = {
     id: string;
   };
   name: string;
-}
+};
 
 const getBookParam = (book: BookParam) => {
   return {
@@ -56,7 +56,7 @@ const TopPage: React.FC = () => {
   const { data: release } = useRelease({ params: { dayOfWeek: todayStr } });
   const { data: featureList } = useFeatureList({ query: {} });
   const { data: rankingList } = useRankingList({ query: {} });
-  
+
   const pickupA11yId = useId();
   const rankingA11yId = useId();
   const todayA11yId = useId();
@@ -75,7 +75,7 @@ const TopPage: React.FC = () => {
           <Box maxWidth="100%" overflowX="scroll" overflowY="hidden">
             <Flex align="stretch" direction="row" gap={Space * 2} justify="flex-start">
               {_.map(featureList, (feature) => (
-                <FeatureCard key={feature.id} book={getBookParam(feature.book)} />
+                <FeatureCard key={feature.id + 'feature'} book={getBookParam(feature.book)} />
               ))}
             </Flex>
           </Box>
@@ -91,7 +91,7 @@ const TopPage: React.FC = () => {
           <Box maxWidth="100%" overflowX="hidden" overflowY="hidden">
             <Flex align="center" as="ul" direction="column" justify="center">
               {_.map(rankingList, (ranking) => (
-                <RankingCard key={ranking.book.id} book={getBookParam(ranking.book)} />
+                <RankingCard key={ranking.id + 'ranking'} book={getBookParam(ranking.book)} />
               ))}
             </Flex>
           </Box>
@@ -107,7 +107,7 @@ const TopPage: React.FC = () => {
           <Box maxWidth="100%" overflowX="scroll" overflowY="hidden">
             <Flex align="stretch" gap={Space * 2} justify="flex-start">
               {_.map(release.books, (book) => (
-                <BookCard key={book.id} book={getBookParam(book)} />
+                <BookCard key={book.id + 'bookCard'} book={getBookParam(book)} />
               ))}
             </Flex>
           </Box>

@@ -13,8 +13,8 @@ type Props = {
 export const SearchResult: React.FC<Props> = ({ keyword }) => {
   const { data: books } = useBookList({ query: { name: keyword } });
   const relatedBooks = useMemo(() => {
-    if (keyword === '') {
-      return books;
+    if (keyword === '' || !books || books.length === 0) {
+      return [];
     }
     return books.filter((book) => {
       return isContains({ query: keyword, target: book.name }) || isContains({ query: keyword, target: book.nameRuby });
