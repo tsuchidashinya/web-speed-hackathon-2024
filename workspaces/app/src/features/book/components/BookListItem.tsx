@@ -28,19 +28,19 @@ const _ImgWrapper = styled.div`
 
 type Props = {
   book: {
-    author: {
+    author?: {
       image: {
         id: string;
       };
       name: string;
     };
-    description: string;
+    description?: string;
     id: string;
     image: {
       alt: string;
       id: string;
     };
-    name: string;
+    name?: string;
   };
 };
 
