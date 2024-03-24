@@ -106,6 +106,17 @@ class BookRepository implements BookRepositoryInterface {
             return like(author.name, `%${options.query.authorName}%`);
           }
           if (options.query.name != null) {
+            const regexKatakana = /^[\u30A0-\u30FF]+$/;
+            if (regexKatakana.test(options.query.name)) {
+              const kataToHira = (str: string) => {
+                return str.replace(regexKatakana, (match) => {
+                  const chr = match.charCodeAt(0) - 0x60;
+                  return String.fromCharCode(chr);
+                });
+              }
+              const anotherName = kataToHira(options.query.name);
+              return or(like(book.name, `%${options.query.name}%`), like(book.nameRuby, `%${options.query.name}%`), like(book.name, `%${anotherName}%`), like(book.nameRuby, `%${anotherName}%`))
+            }
             return or(like(book.name, `%${options.query.name}%`), like(book.nameRuby, `%${options.query.name}%`));
           }
           return;
