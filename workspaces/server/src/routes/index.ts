@@ -8,8 +8,8 @@ import { compressMiddleware } from '../middlewares/compressMiddleware';
 
 import { adminApp } from './admin';
 import { apiApp } from './api';
+import { clientApp } from './client';
 import { imageApp } from './image';
-import { ssrApp } from './ssr';
 import { staticApp } from './static';
 
 const app = new Hono();
@@ -34,7 +34,7 @@ app.route('/', staticApp);
 app.route('/', imageApp);
 app.route('/', apiApp);
 app.route('/', adminApp);
-app.route('/', ssrApp);
+app.route('/', clientApp);
 
 app.onError((cause) => {
   console.error(cause);
