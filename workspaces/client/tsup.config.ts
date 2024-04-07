@@ -21,12 +21,13 @@ export default defineConfig(async (): Promise<Options[]> => {
       bundle: true,
       clean: true,
       entry: {
-        client: path.resolve(PACKAGE_DIR, './src/index.tsx'),
+        admin: path.resolve(PACKAGE_DIR, './src/admin.tsx'),
+        client: path.resolve(PACKAGE_DIR, './src/client.tsx'),
         serviceworker: path.resolve(PACKAGE_DIR, './src/serviceworker/index.ts'),
       },
       env: {
         API_URL: '',
-        NODE_ENV: process.env['NODE_ENV'] || 'development',
+        NODE_ENV: 'production',
         PATH_LIST: IMAGE_PATH_LIST.join(',') || '',
       },
       esbuildOptions(options) {
@@ -39,12 +40,8 @@ export default defineConfig(async (): Promise<Options[]> => {
       esbuildPlugins: [
         polyfillNode({
           globals: {
+            buffer: true,
             process: false,
-          },
-          polyfills: {
-            events: true,
-            fs: true,
-            path: true,
           },
         }),
       ],
@@ -54,14 +51,13 @@ export default defineConfig(async (): Promise<Options[]> => {
         '.wasm': 'binary',
       },
       metafile: true,
-      minify: false,
+      minify: true,
       outDir: OUTPUT_DIR,
       platform: 'browser',
       shims: true,
-      sourcemap: 'inline',
-      splitting: false,
-      target: ['chrome58', 'firefox57', 'safari11', 'edge18'],
-      treeshake: false,
+      sourcemap: false,
+      target: ['chrome63'],
+      treeshake: true,
     },
   ];
 });
