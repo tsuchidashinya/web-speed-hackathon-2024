@@ -4,12 +4,10 @@ import { SWRConfig } from 'swr';
 
 import { ClientApp } from '@wsh-2024/app/src';
 
-import { preloadImages } from './utils/preloadImages';
 import { registerServiceWorker } from './utils/registerServiceWorker';
 
 const main = async () => {
   await registerServiceWorker();
-  await preloadImages();
 
   ReactDOM.hydrateRoot(
     document.getElementById('root')!,
