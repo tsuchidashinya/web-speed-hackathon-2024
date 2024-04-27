@@ -7,8 +7,8 @@ import { Link } from '../../../foundation/components/Link';
 import { Separator } from '../../../foundation/components/Separator';
 import { Spacer } from '../../../foundation/components/Spacer';
 import { Text } from '../../../foundation/components/Text';
-import { useImage } from '../../../foundation/hooks/useImage';
 import { Color, Radius, Space, Typography } from '../../../foundation/styles/variables';
+import { getImageUrl } from '../../../lib/image/getImageUrl';
 
 const _Wrapper = styled.li`
   width: 100%;
@@ -45,11 +45,11 @@ type Props = {
 };
 
 export const BookListItem: React.FC<Props> = ({ book }) => {
-  const imageUrl = useImage({ height: 64, imageId: book.image.id, width: 64 });
+  const imageUrl = getImageUrl({ format: 'jpg', height: 64, imageId: book.image.id, width: 64 });
 
   return (
     <_Wrapper>
-      <_Link href={`/books/${book.id}`}>
+      <_Link to={`/books/${book.id}`}>
         <Spacer height={Space * 1.5} />
         <Flex align="flex-start" gap={Space * 2.5} justify="flex-start">
           {imageUrl != null && (
